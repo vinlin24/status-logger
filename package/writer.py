@@ -7,26 +7,10 @@ import csv
 import os
 from datetime import datetime
 
+from . import ensure_file_path
+
 DESTINATION_PATH = os.path.join(os.path.expanduser("~"),
                                 ".config/status-logger/statuses.csv")
-
-
-def _ensure_file() -> None:
-    """Ensure the existence of the CSV file.
-
-    Postcondition:
-        Does nothing if the file already exists. Otherwise, creates the
-        file and its directory if necessary.
-    """
-    if not os.path.exists(DESTINATION_PATH):
-        # Attempt to make the directory if it exists
-        try:
-            os.mkdir(os.path.dirname(DESTINATION_PATH))
-        except FileExistsError:
-            pass
-        # Make the file
-        with open(DESTINATION_PATH):
-            pass
 
 
 def log_status(emoji: str | None, text: str) -> None:
@@ -40,7 +24,7 @@ def log_status(emoji: str | None, text: str) -> None:
     Postcondition:
         The CSV file exists at the destination path.
     """
-    _ensure_file()
+    ensure_file_path(DESTINATION_PATH)
 
     # Ideally, I'll have a status per day, so the date should be enough
     # The time part is included for potential debugging purposes
