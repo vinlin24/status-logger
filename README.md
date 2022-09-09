@@ -2,7 +2,7 @@
 
 ## Description
 
-It's become a habit of mine to update my Discord custom status with something witty or silly for the day. When it expires, I write something new, usually whatever happened to be on my mind at that time. I figured it would be nice to record these custom statuses in some kind of history log so I can look back on what my mind was up to on a certain day.
+It's become a habit of mine to update my Discord custom status with something witty or silly for the day. When it expires at midnight, I write something new, usually whatever happened to be on my mind at that time. I figured it would be nice to record these custom statuses in some kind of history log so I can look back on what my mind was up to on a certain day.
 
 ## Implementation
 
@@ -17,9 +17,11 @@ I hooked this program up to the Windows Task Scheduler on my local machine to ru
 The scheduler action is set up as follows:
 
 - Action: Start a program
-- Program/script: `path\to\this\repo\.venv\python.exe`
+- Program/script: `path\to\this\repo\.venv\Scripts\python.exe`
 - Add arguments: `-m package`
 - Start in: `path\to\this\repo`
+
+And the task is configured to run only when a network connection is available.
 
 ## Environment Recovery
 
@@ -40,4 +42,4 @@ pip install -r requirements.txt
 
 ## What Next
 
-At the moment, this program is only concerned with saving history. In the future, maybe I'll want to parse/filter the CSV file for some other purpose. I might also make this program distributable as a learning exercise but also so others can take part in this silly habit.
+At the moment, this program is only concerned with saving history. In the future, maybe I'll want to parse/filter the CSV file for some other purpose. I might also make this program distributable as a learning exercise but also so others can take part in this silly habit. Also, the execution of this program relies entirely on the Windows Task Scheduler, so if my PC happens to be powered off at 11:55 PM or other conditions cause it to fail, then the history will miss a day. I might add more features or countermeasures to combat this.
