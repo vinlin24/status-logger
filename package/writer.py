@@ -17,8 +17,8 @@ def log_status(emoji: str | None, text: str) -> None:
     """Log the status to the CSV file.
 
     Args:
-        emoji (str | None): The emoji part of the status in :colon:
-        form. None if the status did not use an emoji.
+        emoji (str | None): The emoji part of the status as a Unicode
+        character. None if the status did not use an emoji.
         text (str): The text part of the status.
 
     Postcondition:
@@ -34,6 +34,7 @@ def log_status(emoji: str | None, text: str) -> None:
 
     # According to: https://docs.python.org/3/library/csv.html#csv.writer
     # File objects should use newline=""
-    with open(DESTINATION_PATH, "at", newline="") as fp:
+    # encoding kwarg is necessary because emojis are Unicode chars
+    with open(DESTINATION_PATH, "at", encoding="utf-8", newline="") as fp:
         writer = csv.writer(fp)
         writer.writerow([date, time, emoji, text])
