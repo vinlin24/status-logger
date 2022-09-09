@@ -22,7 +22,7 @@ try:
     log_exit_status(None)
     print("Finished running the status-logger package: SUCCESS.")
 except Exception as e:
-    # send_error_email(e)
-    # log_exit_status(e)
+    log_exit_status(e)
+    send_error_email(e)
     print("Finished running the status-logger package: ERROR.")
     print(f"{type(e).__name__}: {e}")
