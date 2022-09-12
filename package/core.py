@@ -7,23 +7,8 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
 from .secrets import DISCORD_EMAIL, DISCORD_PASSWORD
-
-# ==================== FULL XPATHS ==================== #
-# These risk changing every damn update :/
-
-XPATH_LOGIN_BUTTON = ("/html/body/div[1]/div/div/div[1]/div[1]/header[1]/nav/"
-                      "div/a")
-XPATH_EMAIL_INPUT = ("/html/body/div[1]/div[2]/div/div[1]/div/div/div/div/"
-                     "form/div/div/div[1]/div[2]/div[1]/div/div[2]/input")
-XPATH_PASSWORD_INPUT = ("/html/body/div[1]/div[2]/div/div[1]/div/div/div/div/"
-                        "form/div/div/div[1]/div[2]/div[2]/div/input")
-XPATH_EMOJI_IMG = ("/html/body/div[1]/div[2]/div/div[1]/div/div[2]/div/div[1]/"
-                   "div/div/div[1]/section/div[2]/div[1]/div[2]/div[2]/div/"
-                   "div[2]/div/img")
-XPATH_TEXT_SPAN = ("/html/body/div[1]/div[2]/div/div[1]/div/div[2]/div/div[1]/"
-                   "div/div/div[1]/section/div[2]/div[1]/div[2]/div[2]/div/"
-                   "div[2]/div/span")
-
+from .xpaths import (XPATH_EMAIL_INPUT, XPATH_EMOJI_IMG, XPATH_PASSWORD_INPUT,
+                     XPATH_TEXT_SPAN)
 
 # ==================== SCRAPING SUBROUTINES ==================== #
 
@@ -81,6 +66,9 @@ def _extract_text(driver: webdriver.Edge) -> str:
         return ""
 
     return status_input.text
+
+
+# ==================== INTERFACE FUNCTION ==================== #
 
 
 def get_status(driver: webdriver.Edge) -> tuple[str | None, str]:
