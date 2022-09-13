@@ -12,44 +12,55 @@ This project uses [Python Selenium](https://pypi.org/project/selenium/) to headl
 Date,Time,Emoji,Text
 ```
 
-I hooked this program up to the Windows Task Scheduler on my local machine to run daily just before midnight at 11:00 PM to save what my status happens to be at that time, which is assumed to be what my status was for that day.
+I hooked this program up to the [Windows Task Scheduler](#task-scheduler-setup) on my local machine to run daily just before midnight at 11:00 PM to save what my status happens to be at that time, which is assumed to be what my status was for that day.
 
 If the program raises an Exception at any point, such as in the webscraping part due to outdated XPaths, it will log it and the traceback to a local `status-logger.log` file as well as send it as an email to myself.
 
 ## Task Scheduler Setup
 
-- General
-  - Security options
-    - Run whether user is logged on or not
-- Triggers
-  - New...
-    - Begin the task: On a schedule
-    - Settings
-      - Daily
-      - Start: 9/9/2022 11:00:00 PM
-      - Synchronize across time zones
-      - Recur every: 1 days
-    - Advanced settings
-      - Enabled
-- Actions
-  - New...
-    - Action: Start a program
-    - Program/script: path\to\this\repo\\.venv\Scripts\python.exe
-    - Add arguments: -m package
-    - Start in: path\to\this\repo
-- Conditions
-  - Power
-    - Wake the computer to run this task
-  - Network
-    - Start only if the following network connection is available: Any connection
-- Settings
-  - Allow task to be run on demand
-  - If the task fails, restart Every: 15 minutes, Attempt to restart up to: 3 times
-  - Stop the task if it runs longer than: 1 hour
-  - If the running task does not end when requested, force it to stop
-  - If the task is already running, then the following rule applies: Stop the existing instance
+### General
 
-## Environment Recovery
+- Security options
+  - Run whether user is logged on or not
+
+### Triggers
+
+- New...
+  - Begin the task: On a schedule
+  - Settings
+    - Daily
+    - Start: 9/9/2022 11:00:00 PM
+    - Synchronize across time zones
+    - Recur every: 1 days
+  - Advanced settings
+    - Enabled
+
+### Actions
+
+- New...
+  - Action: Start a program
+  - Program/script: path\to\this\repo\\.venv\Scripts\python.exe
+  - Add arguments: -m package
+  - Start in: path\to\this\repo
+
+### Conditions
+
+- Power
+  - Wake the computer to run this task
+- Network
+  - Start only if the following network connection is available: Any connection
+
+### Settings
+
+- Allow task to be run on demand
+- If the task fails, restart Every: 15 minutes, Attempt to restart up to: 3 times
+- Stop the task if it runs longer than: 1 hour
+- If the running task does not end when requested, force it to stop
+- If the task is already running, then the following rule applies: Stop the existing instance
+
+## Development
+
+### Environment Recovery
 
 As usual, this project makes uses of environment variables set up in a `.env` file at the project root. The required key names are:
 
@@ -66,6 +77,14 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-## What Next
+### Limitations
 
-At the moment, this program is only concerned with saving history. In the future, maybe I'll want to parse/filter the CSV file for some other purpose. I might also make this program distributable as a learning exercise but also so others can take part in this silly habit. Also, the execution of this program relies entirely on the Windows Task Scheduler, so if my PC happens to be powered off at 11:55 PM or other conditions cause it to fail, then the history will miss a day. I might add more features or countermeasures to combat this. At the moment, I use some [options provided by the Task Schedule](#task-scheduler-setup) to reduce this risk.
+The program is designed to be run by an external scheduler, like the Windows Task Scheduler, so if some condition stops the task from running, then the history will miss a day. I might add more features or countermeasures to combat this. At the moment, I use some [options provided by the Task Scheduler itself](#task-scheduler-setup) to reduce this risk.
+
+### What Next
+
+At the moment, this program is only concerned with saving history. In the future, maybe I'll want to parse/filter the CSV file for some other purpose. I might also make this program distributable as a learning exercise but also so others can take part in this silly habit. I imagine that distribution would entail:
+
+- Making the package itself more configurable by supporting different browsers, customizing history file location, etc.
+- Using [setuptools](https://github.com/pypa/setuptools) or the like to automatically install the package for the end user.
+- Writing a helper script to hook up the installed package to the Windows Task scheduler using [PowerShell](https://docs.microsoft.com/en-us/powershell/module/scheduledtasks/?view=windowsserver2022-ps).
