@@ -87,5 +87,4 @@ def get_status(driver: webdriver.Edge) -> tuple[str | None, str]:
     _login(driver)
     emoji = _extract_emoji(driver)
     text = _extract_text(driver)
-    print(f"Extracted {emoji=}, {text=}.")
     return (emoji, text)
