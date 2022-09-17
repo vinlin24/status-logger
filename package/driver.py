@@ -15,7 +15,7 @@ DRIVER_PATH = os.path.join(os.path.dirname(__file__),
                            "../bin/msedgedriver.exe")
 """Absolute path to Edge web driver executable."""
 
-WAIT_TIMEOUT = 5.0
+WAIT_TIMEOUT = 15.0
 """Time in seconds for driver to wait for pages to load."""
 
 

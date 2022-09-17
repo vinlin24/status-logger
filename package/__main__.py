@@ -33,8 +33,9 @@ try:
     # I almost never not have a status; this must mean scraping failed
     if not emoji and not text:
         raise Exception(
-            "Status could not be extracted. If you really did not have a"
-            "status set up for today, ignore this."
+            "Status could not be extracted. If you really did not have a "
+            "status set up for today, ignore this. It is also possible that "
+            "the page did not load in time. Check your connection."
         )
 except Exception as e:
     if not console_only:
