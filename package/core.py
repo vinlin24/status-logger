@@ -5,10 +5,10 @@ Webscraping sequences to obtain the current Discord cusom status.
 
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 
 from .secrets import DISCORD_EMAIL, DISCORD_PASSWORD
-from .xpaths import (XPATH_EMAIL_INPUT, XPATH_EMOJI_IMG, XPATH_PASSWORD_INPUT,
-                     XPATH_TEXT_SPAN)
+from .selectors import EMAIL_INPUT, EMOJI_IMG, PASSWORD_INPUT, TEXT_SPAN
 
 # ==================== SCRAPING SUBROUTINES ==================== #
 
@@ -22,14 +22,8 @@ def _login(driver: webdriver.Edge) -> None:
         driver (webdriver.Edge): Edge web driver instance.
     """
     # Find elements
-    email_input = driver.find_element(
-        "xpath",
-        XPATH_EMAIL_INPUT
-    )
-    password_input = driver.find_element(
-        "xpath",
-        XPATH_PASSWORD_INPUT
-    )
+    email_input = driver.find_element(By.CSS_SELECTOR, EMAIL_INPUT)
+    password_input = driver.find_element(By.CSS_SELECTOR, PASSWORD_INPUT)
 
     # Enter credentials
     email_input.clear()
@@ -42,10 +36,7 @@ def _extract_emoji(driver: webdriver.Edge) -> str | None:
     """Extract the emoji part of the custom status."""
     # An emoji was used: this img element should be present
     try:
-        emoji_img = driver.find_element(
-            "xpath",
-            XPATH_EMOJI_IMG
-        )
+        emoji_img = driver.find_element(By.CSS_SELECTOR, EMOJI_IMG)
     # An emoji wasn't used
     except NoSuchElementException:
         return None
@@ -57,15 +48,12 @@ def _extract_text(driver: webdriver.Edge) -> str:
     """Extract the text part of the custom status."""
     # Get the <span> element that contains the text part
     try:
-        status_input = driver.find_element(
-            "xpath",
-            XPATH_TEXT_SPAN
-        )
+        text_span = driver.find_element(By.CSS_SELECTOR, TEXT_SPAN)
     # <span> element doesn't exist if text is blank
     except NoSuchElementException:
         return ""
 
-    return status_input.text
+    return text_span.text
 
 
 # ==================== INTERFACE FUNCTION ==================== #
