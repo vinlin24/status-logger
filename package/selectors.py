@@ -8,10 +8,10 @@ Stores CSS selectors of useful web elements as string constants.
 Selector = str
 """Type alias for hinting strings as CSS selectors."""
 
-EMAIL_INPUT = Selector("#uid_8")
+EMAIL_INPUT = Selector("#uid_5")
 """The <input> for email on the login page."""
 
-PASSWORD_INPUT = Selector("#uid_11")
+PASSWORD_INPUT = Selector("#uid_7")
 """The <input> for password on the login page."""
 
 EMOJI_IMG = Selector(".emoji.emoji-V71N2V.emoji-3iqL7b.emoji-11a5QE")
