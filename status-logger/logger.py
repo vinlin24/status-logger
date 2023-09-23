@@ -5,6 +5,7 @@ Handles logging as well as sending an email report upon error.
 
 import os
 import smtplib
+import sys
 import traceback
 from datetime import date, datetime
 from email.message import EmailMessage
@@ -49,7 +50,7 @@ def log_exit_status(error: Exception | None) -> None:
         entry += _get_error_message(error) + "\n"
 
     ensure_file_path(LOG_FILE_PATH)
-    with open(LOG_FILE_PATH, "at") as fp:
+    with open(LOG_FILE_PATH, "at", encoding="utf-8") as fp:
         fp.write(entry)
 
 
@@ -67,9 +68,16 @@ def send_error_email(error: Exception) -> None:
     # Send email to self through Outlook server
     # https://www.arclab.com/en/kb/email/list-of-smtp-and-imap-servers-mailserver-list.html
     host, port = "smtp-mail.outlook.com", 587
-    with smtplib.SMTP(host, port) as smtp:
-        smtp.starttls()
-        smtp.login(user=ERROR_EMAIL, password=ERROR_EMAIL_PASSWORD)
-        smtp.send_message(message)
-
-    print("Email sent successfully.")
+    try:
+        with smtplib.SMTP(host, port) as smtp:
+            smtp.starttls()
+            smtp.login(user=ERROR_EMAIL, password=ERROR_EMAIL_PASSWORD)
+            smtp.send_message(message)
+    except smtplib.SMTPException as exc:
+        message = f"Failed to send email: {exc}"
+        sys.stderr.write(message)
+        entry = f"[{datetime.now()}] {message}\n"
+        with open(LOG_FILE_PATH, "at", encoding="utf-8") as log:
+            log.write(entry)
+    else:
+        print("Email sent successfully.")
