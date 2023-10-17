@@ -21,8 +21,8 @@ def get_driver(headless: bool) -> Generator[webdriver.Edge, None, None]:
     service = Service(EdgeChromiumDriverManager().install())
     options = Options()
     options.headless = headless
-    options.add_argument("--window-size=1920,1080")
     driver = webdriver.Edge(service=service, options=options)
+    driver.maximize_window()
     driver.implicitly_wait(WAIT_TIMEOUT)
     try:
         yield driver
