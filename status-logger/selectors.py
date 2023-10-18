@@ -3,31 +3,14 @@
 Stores CSS selectors of useful web elements as string constants.
 """
 
-# Experimenting with CSS selectors instead of full xpaths
-
-Selector = str
-"""Type alias for hinting strings as CSS selectors."""
-
-EMAIL_INPUT = Selector("#uid_5")
-"""The <input> for email on the login page."""
-
-PASSWORD_INPUT = Selector("#uid_7")
-"""The <input> for password on the login page."""
-
-EMOJI_IMG = Selector(".emoji.emoji-V71N2V.emoji-3iqL7b.emoji-11a5QE")
+EMOJI_IMG = "#app-mount > div.appAsidePanelWrapper-VeklAl > div.notAppAsidePanel-1yXaPq > div.app-1BipOi > div > div.layers-OrUESM.layers-1YQhyW > div > div > div > div > div > section > div.container-1CH86i > div.avatarWrapper-12uuu4.withTagAsButton-2_JkHX > div.nameTag-2Q56-H.canCopy-rj-Am8 > div.panelSubtextContainer-30etH9 > div > div > div.default-rFvAvS > div > img"
 """The <img> of the emoji part, if included."""
 
-TEXT_SPAN = Selector(".customStatus-1UAQAK > span")
+TEXT_SPAN = "#app-mount > div.appAsidePanelWrapper-VeklAl > div.notAppAsidePanel-1yXaPq > div.app-1BipOi > div > div.layers-OrUESM.layers-1YQhyW > div > div > div > div > div > section > div.container-1CH86i > div.avatarWrapper-12uuu4.withTagAsButton-2_JkHX > div.nameTag-2Q56-H.canCopy-rj-Am8 > div.panelSubtextContainer-30etH9 > div > div > div.default-rFvAvS > div > span"
 """The <span> of the text part, if included."""
 
+EMAIL_INPUT = "#uid_5"
+"""The text input box for email on the login page."""
 
-XPATH_EMAIL_INPUT = ("/html/body/div[1]/div[2]/div/div[1]/div/div/div/div/"
-                     "form/div/div/div[1]/div[2]/div[1]/div/div[2]/input")
-XPATH_PASSWORD_INPUT = ("/html/body/div[1]/div[2]/div/div[1]/div/div/div/div/"
-                        "form/div/div/div[1]/div[2]/div[2]/div/input")
-XPATH_EMOJI_IMG = ("/html/body/div[2]/div[2]/div/div[1]/div/div[2]/div/div[1]/"
-                   "div/div/div[1]/section/div[2]/div[1]/div[2]/div[2]/div/"
-                   "div[2]/div/img")
-XPATH_TEXT_SPAN = ("/html/body/div[2]/div[2]/div/div[1]/div/div[2]/div/div[1]/"
-                   "div/div/div[1]/section/div[2]/div[1]/div[2]/div[2]/div/"
-                   "div[2]/div/span")
+PASSWORD_INPUT = "#uid_7"
+"""The text input box for password on the login page."""
