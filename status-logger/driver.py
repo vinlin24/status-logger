@@ -5,6 +5,7 @@ Initializes the web driver instance.
 
 from collections.abc import Generator
 from contextlib import contextmanager
+from pathlib import Path
 
 from selenium import webdriver
 from selenium.webdriver.edge.options import Options
@@ -16,9 +17,14 @@ WAIT_TIMEOUT = 15.0
 
 
 @contextmanager
-def get_driver(headless: bool) -> Generator[webdriver.Edge, None, None]:
+def get_driver(headless: bool, path: Path | None
+               ) -> Generator[webdriver.Edge, None, None]:
     """Initialize and return the Edge web driver instance to use."""
-    service = Service(EdgeChromiumDriverManager().install())
+    if path is None:
+        driver_path = EdgeChromiumDriverManager().install()
+    else:
+        driver_path = str(path)
+    service = Service(executable_path=driver_path)
     options = Options()
     options.headless = headless
     driver = webdriver.Edge(service=service, options=options)

@@ -5,6 +5,7 @@ Package entry point.
 
 import sys
 from argparse import ArgumentParser
+from pathlib import Path
 
 from .core import get_status
 from .driver import get_driver
@@ -19,15 +20,23 @@ parser.add_argument("-c", "--console",
 parser.add_argument("-w", "--window",
                     action="store_true",
                     help="Run the scraper windowed instead of headlessly")
+parser.add_argument("-p", "--path",
+                    type=Path,
+                    help="Custom path to web driver executable")
 ns = parser.parse_args(sys.argv[1:])
 
-console_only = ns.console
-headless = not ns.window
+console_only: bool = ns.console
+headless: bool = not ns.window
+path: Path | None = ns.path
 
-print(f"Running the status-logger package ({console_only=}, {headless=})...")
+print(
+    "Running the status-logger package ("
+    f"{console_only=}, {headless=}, {path=}"
+    ")..."
+)
 
 try:
-    with get_driver(headless) as driver:
+    with get_driver(headless, path) as driver:
         emoji, text = get_status(driver)
     print(f"Extracted {emoji=} and {text=}.")
     # I almost never not have a status; this must mean scraping failed
