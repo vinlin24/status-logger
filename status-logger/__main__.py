@@ -52,6 +52,7 @@ except Exception as e:
         send_error_email(e)
     print("Finished running the status-logger package: ERROR.")
     print(f"{type(e).__name__}: {e}")
+    sys.exit(1)
 else:
     if not console_only:
         log_status(emoji, text)
