@@ -41,6 +41,9 @@ try:
     print(f"Extracted {emoji=} and {text=}.")
     # I almost never not have a status; this must mean scraping failed
     if not emoji and not text:
+        # UPDATE: At least try to log something so the log file looks
+        # consistent (no missing dates).
+        log_status(emoji=None, text="[ no status set or failed to extract ]")
         raise Exception(
             "Status could not be extracted. If you really did not have a "
             "status set up for today, ignore this. It is also possible that "
