@@ -4,9 +4,11 @@
 
 It's become a habit of mine to update my Discord custom status with something witty or silly for the day. When it expires at midnight, I write something new, usually whatever happened to be on my mind at that time. I figured it would be nice to record these custom statuses in some kind of history log so I can look back on what my mind was up to on a certain day.
 
-:mega: **UPDATE:** This repository has been *deprecated* as the status logging
-functionality has been merged into my
-[counters](https://github.com/vinlin24/counters) project.
+> [!WARNING]
+>
+> **UPDATE:** This repository has been *deprecated* as the status logging
+> functionality has been merged into my
+> [counters](https://github.com/vinlin24/counters) project.
 
 ## Implementation
 
